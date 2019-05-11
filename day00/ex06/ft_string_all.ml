@@ -1,4 +1,4 @@
-let ft_string_all f (s : string) : bool =
+let ft_string_all (f : char -> bool) (s : string) : bool =
   let rec m f s i =
     if i >= 0 then
       begin
