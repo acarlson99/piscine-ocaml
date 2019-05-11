@@ -18,4 +18,5 @@ let test f s =
 
 let () =
   test is_digit "abcdef";
-  test is_digit "012345"
+  test is_digit "012345";
+  test is_digit "012a345"
