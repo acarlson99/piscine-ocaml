@@ -12,10 +12,10 @@ let ft_string_all f (s : string) : bool =
 let is_digit n =
   n >= '0' && n <= '9'
 
-let t f s =
+let test f s =
   if ft_string_all f s then print_endline "YEP"
   else print_endline "NOPE"
 
 let () =
-  t is_digit "abcdef";
-  t is_digit "012345"
+  test is_digit "abcdef";
+  test is_digit "012345"
