@@ -1,7 +1,7 @@
 let ft_print_comb () =
   let rec boi n l =
     if l > 0 || n >= 10 then boi (n / 10) (l - 1);
-    print_int (n mod 10);   (* TODO: check if this is an operator or function *)
+    print_int (n mod 10);
   in
   let rec f prev start len p =
     if (len + start) > 9 then print_string ""
