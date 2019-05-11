@@ -16,3 +16,4 @@ let () =
   test "bbcba";
   test "a";
   test "";
+  test "radar";
