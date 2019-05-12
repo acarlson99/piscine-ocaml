@@ -1,4 +1,4 @@
-let rec ackermann m n  =
+let rec ackermann (m : int) (n : int) : int =
   match m, n with
     0, _ -> n + 1
   | _, 0 when m > 0 -> ackermann (m - 1) 1
