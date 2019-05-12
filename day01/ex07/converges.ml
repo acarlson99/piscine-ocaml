@@ -1,7 +1,6 @@
 let rec converges (f : 'a -> 'a) (x : 'a) (n : int) : bool =
   if n < 0 then false
-  else if x == (f x) then true
-  else if n == 0 then false
+  else if n == 0 then f x == x
   else converges f (f x) (n - 1)
 
 let () =
