@@ -1,5 +1,5 @@
 (* TODO: what does "We don't have to handle duplicates in lists" mean? *)
-let rec crossover (a : 'a list) (b : 'a list) : 'a list =
+let crossover (a : 'a list) (b : 'a list) : 'a list =
   if a == [] || b == [] then []
   else let rec check (a : 'a) (b : 'a list) : bool =
          match b with
