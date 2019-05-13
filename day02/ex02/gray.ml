@@ -13,12 +13,14 @@ let gray (n : int) : unit =
            x :: xs -> (n :: x) :: (pad xs n)
          | _ -> []
        in
-       let rec concatenate l1 l2 =
-         (* TODO: this *)
+       let rec concat l1 l2 =
+         match l1 with
+           x::xs -> x :: (concat xs l2)
+         | _ -> l2
        in
        let rec f n l1 =
          if n == 1 then l1
-         else f (n - 1) ((pad l1 0) @ (pad (reverse l1 []) 1)) (* TODO: remove *)
+         else f (n - 1) (concat (pad l1 0) (pad (reverse l1 []) 1))
        in
        let rec pb l =
          match l with
