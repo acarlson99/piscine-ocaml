@@ -83,7 +83,7 @@ let () =
   let rec printBois (hx : helix) : unit =
     match hx with
       x::xs -> (printBoi x; printBois xs)
-    | [] -> Printf.printf "[]\n"
+    | [] -> Printf.printf "\n"
   in
   let l = generate_helix 15 in
   printBois l;
