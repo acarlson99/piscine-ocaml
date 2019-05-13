@@ -1,33 +1,40 @@
 let gray (n : int) : unit =
-  let s =
-    [ [0]; [1] ]
-  in
-  let reverse l q =
-    (* TODO: make list reversing function *)
-    []
-  in
-  let rec f n l1 =
-    (*
-1) Let the list of (n-1)-bit Gray codes be L1. Create another list L2 which is reverse of L1.
-2) Modify the list L1 by prefixing a ‘0’ in all codes of L1.
-3) Modify the list L2 by prefixing a ‘1’ in all codes of L2.
-4) Concatenate L1 and L2. The concatenated list is required list of n-bit Gray codes.
-     *)
-    let l2 = reverse l1
-    in
-    l1
-  in
-  let rec pb l =
-    match l with
-      x::xs -> print_int x; pb xs
-    | [] -> print_char '\n'
-  in
-  let rec p l =
-    match l with
-      x::xs -> pb x; p xs
-    | [] -> print_string ""
-  in
-  p (f n s)
+  if n < 1 then print_endline "Error"
+  else let s =
+         [ [0]; [1] ]
+       in
+       let rec reverse l acc =
+         match l with
+           x::xs -> reverse xs (x::acc)
+         | _ -> acc
+       in
+       let rec pad l n =
+         match l with
+           x :: xs -> (n :: x) :: (pad xs n)
+         | _ -> []
+       in
+       let rec concatenate l1 l2 =
+         (* TODO: this *)
+       in
+       let rec f n l1 =
+         if n == 1 then l1
+         else f (n - 1) ((pad l1 0) @ (pad (reverse l1 []) 1)) (* TODO: remove *)
+       in
+       let rec pb l =
+         match l with
+           x::xs -> print_int x; pb xs
+         | [] -> print_string ""
+       in
+       let rec p l r =
+         match l with
+           x::xs -> if r then print_char ' '; pb x; p xs true
+           | [] -> print_string "\n"
+       in
+       p (f n s) false
 
 let () =
-  gray 3
+  gray 1;
+  print_char '\n';
+  gray 2;
+  print_char '\n';
+  gray 3;
