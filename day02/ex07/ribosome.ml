@@ -115,8 +115,37 @@ type protein =
   | Tyr (* UAC, UAU                     : Tyrosine *)
   | Val (* GUA, GUC, GUG, GUU           : Valine *)
 
-let generate_bases_triplets (r : rna) : (nucleobase * nucleobase * nucleobase) list =
-  []
+let rec generate_bases_triplets (r : rna) : (nucleobase * nucleobase * nucleobase) list =
+  match r with
+    a::b::c::xs -> (a,b,c) :: generate_bases_triplets xs
+  | _ -> []
 
 let string_of_protein (p : protein) : string =
   ""
+
+let () =
+  let hx = generate_helix 17 in
+  let getBoi n =
+    match n with
+      A -> "A"
+    | T -> "T"
+    | C -> "C"
+    | G -> "G"
+    | U -> "U"
+    | _ -> "None"
+  in
+  let printBoi n =
+    Printf.printf "%s " (getBoi n.n)
+  in
+  List.iter printBoi hx;
+  Printf.printf "\n";
+  let printBoi n =
+    Printf.printf "%s " (getBoi n)
+  in
+  let rn = generate_rna hx in
+  List.iter printBoi rn;
+  Printf.printf "\n";
+  let printBoi (a,b,c) =
+    Printf.printf "(%s-%s-%s) " (getBoi a) (getBoi b) (getBoi c)
+  in
+  List.iter printBoi (generate_bases_triplets rn)
