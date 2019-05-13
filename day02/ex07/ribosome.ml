@@ -121,7 +121,34 @@ let rec generate_bases_triplets (r : rna) : (nucleobase * nucleobase * nucleobas
   | _ -> []
 
 let string_of_protein (p : protein) : string =
-  ""
+  match p with
+  | Stop -> "EOT"
+  | Ala -> "Alanine"
+  | Arg -> "Arginine"
+  | Asn -> "Asparagine"
+  | Asp -> "Aspartique"
+  | Cys -> "Cysteine"
+  | Gln -> "Glutamine"
+  | Glu -> "Glutamique"
+  | Gly -> "Glycine"
+  | His -> "Histidine"
+  | Ile -> "Isoleucine"
+  | Leu -> "Leucine"
+  | Lys -> "Lysine"
+  | Met -> "Methionine"
+  | Phe -> "Phenylalanine"
+  | Pro -> "Proline"
+  | Ser -> "Serine"
+  | Thr -> "Threonine"
+  | Trp -> "Tryptophane"
+  | Tyr -> "Tyrosine"
+  | Val -> "Valine"
+  | _ -> ""
+
+
+
+let decode_arn (r : rna) : protein =
+  Stop
 
 let () =
   let hx = generate_helix 17 in
