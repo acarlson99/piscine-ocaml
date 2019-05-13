@@ -92,7 +92,7 @@ let generate_rna (hx : helix) : rna =
 
 
 
-type protein =
+type aminoacid =
   | Stop (* UAA, UAG, UGA               : End of translation *)
   | Ala (* GCA, GCC, GCG, GCU           : Alanine *)
   | Arg (* AGA, AGG, CGA, CGC, CGG, CGU : Arginine *)
@@ -115,40 +115,46 @@ type protein =
   | Tyr (* UAC, UAU                     : Tyrosine *)
   | Val (* GUA, GUC, GUG, GUU           : Valine *)
 
+type protein = aminoacid list
+
 let rec generate_bases_triplets (r : rna) : (nucleobase * nucleobase * nucleobase) list =
   match r with
     a::b::c::xs -> (a,b,c) :: generate_bases_triplets xs
   | _ -> []
 
 let string_of_protein (p : protein) : string =
-  match p with
-  | Stop -> "EOT"
-  | Ala -> "Alanine"
-  | Arg -> "Arginine"
-  | Asn -> "Asparagine"
-  | Asp -> "Aspartique"
-  | Cys -> "Cysteine"
-  | Gln -> "Glutamine"
-  | Glu -> "Glutamique"
-  | Gly -> "Glycine"
-  | His -> "Histidine"
-  | Ile -> "Isoleucine"
-  | Leu -> "Leucine"
-  | Lys -> "Lysine"
-  | Met -> "Methionine"
-  | Phe -> "Phenylalanine"
-  | Pro -> "Proline"
-  | Ser -> "Serine"
-  | Thr -> "Threonine"
-  | Trp -> "Tryptophane"
-  | Tyr -> "Tyrosine"
-  | Val -> "Valine"
-  | _ -> ""
+  let rec f p sp st =
+    if sp && p != [] then f p false (st ^ " ")
+    else match p with
+    | Stop::xs -> f xs true (st ^ "EOT")
+    | Ala::xs -> f xs true (st ^ "Alanine")
+    | Arg::xs -> f xs true (st ^ "Arginine")
+    | Asn::xs -> f xs true (st ^ "Asparagine")
+    | Asp::xs -> f xs true (st ^ "Aspartique")
+    | Cys::xs -> f xs true (st ^ "Cysteine")
+    | Gln::xs -> f xs true (st ^ "Glutamine")
+    | Glu::xs -> f xs true (st ^ "Glutamique")
+    | Gly::xs -> f xs true (st ^ "Glycine")
+    | His::xs -> f xs true (st ^ "Histidine")
+    | Ile::xs -> f xs true (st ^ "Isoleucine")
+    | Leu::xs -> f xs true (st ^ "Leucine")
+    | Lys::xs -> f xs true (st ^ "Lysine")
+    | Met::xs -> f xs true (st ^ "Methionine")
+    | Phe::xs -> f xs true (st ^ "Phenylalanine")
+    | Pro::xs -> f xs true (st ^ "Proline")
+    | Ser::xs -> f xs true (st ^ "Serine")
+    | Thr::xs -> f xs true (st ^ "Threonine")
+    | Trp::xs -> f xs true (st ^ "Tryptophane")
+    | Tyr::xs -> f xs true (st ^ "Tyrosine")
+    | Val::xs -> f xs true (st ^ "Valine")
+    | _ -> st
+  in
+  f p false ""
 
 
 
 let decode_arn (r : rna) : protein =
-  Stop
+  [Stop]
 
 let () =
   let hx = generate_helix 17 in
@@ -175,4 +181,6 @@ let () =
   let printBoi (a,b,c) =
     Printf.printf "(%s-%s-%s) " (getBoi a) (getBoi b) (getBoi c)
   in
-  List.iter printBoi (generate_bases_triplets rn)
+  List.iter printBoi (generate_bases_triplets rn);
+  Printf.printf "\n";
+  Printf.printf "%s\n" (string_of_protein [Ala; Asn; Stop])
