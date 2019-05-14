@@ -6,7 +6,7 @@ let rec caesar (s : string) (n : int) : string =
     | _ -> c
   in
   let f n =
-    if n == 0 then s
+    if n = 0 then s
     else String.map (ro n) s
   in
   if n < 0 then caesar s (n + 26)
