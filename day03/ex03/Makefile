@@ -1,4 +1,4 @@
-NAME = btree.ml
+NAME = btree.native
 
 all: ${NAME}
 

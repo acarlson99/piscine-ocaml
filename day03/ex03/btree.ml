@@ -17,4 +17,3 @@ let add_bst (v : 'a) (t : 'a tree) : 'a tree =
 
 let delete_bst (v : 'a) (t : 'a tree) : 'a tree =
   Nil
-
