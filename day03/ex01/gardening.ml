@@ -1,6 +1,6 @@
 type 'a tree = Nil | Node of 'a * 'a tree * 'a tree
 
-let draw_tree_node (t : 'a tree) : unit =
+let draw_tree (t : 'a tree) : unit =
   let draw_square (x : int) (y : int) (size : int) : unit =
     let tlx = (x - (size / 2)) in
     let tly = (y - (size / 2)) in
@@ -23,3 +23,20 @@ let draw_tree_node (t : 'a tree) : unit =
     | Nil -> Graphics.moveto (x-size/2) y; Graphics.draw_string "nil"; draw_square x y size
   in
   f 300 384 30 4 t
+
+let rec size (t : 'a tree) : int =
+  match t with
+    Node (a,b,c) -> size b + size c + 1
+  | Nil -> 0
+
+let rec height (t : 'a tree) : int =
+  match t with
+    Nil -> (-1)
+  | Node (a,b,c) -> let ah = height c and bh = height b in
+                    if ah > bh then ah + 1
+                    else bh + 1
+
+let () =
+  let t = (Node ("abc", Nil, (Node ("def", (Node ("ghi", Nil, Nil)), (Node ("jkl", Nil, Nil)))))) in
+  print_endline (string_of_int (size t));
+  print_endline (string_of_int (height t))
