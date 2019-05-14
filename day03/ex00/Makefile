@@ -1,15 +1,8 @@
-CC := ocamlopt
-NAME := test
-FILES := ft_graphics.ml
+NAME = ft_graphics.native
+LIB = -lib graphics
 
-all: ${NAME}
-
-${NAME}:
-	ocamlopt ${FILES} -o ${NAME}
+all:
+	ocamlopt $(LIB) $(NAME)
 
 clean:
-
-fclean:
-	rm -f ${NAME}
-
-re: fclean all
+	rm -rf _build $(NAME)
