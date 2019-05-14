@@ -1,2 +1,4 @@
+open Graphics
+
 let () =
-  Printf.printf "A\n"
+  Graphics.open_graph "A";

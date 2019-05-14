@@ -75,3 +75,4 @@ TAGS
 # ocaml
 *.cmi
 *.cmx
+test
