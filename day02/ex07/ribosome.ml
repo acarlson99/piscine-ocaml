@@ -154,10 +154,36 @@ let string_of_protein (p : protein) : string =
 
 
 let decode_arn (r : rna) : protein =
-  [Stop]
+  let rec f r l =
+    match r with
+    | (U,A,A)::(U,A,G)::(U,G,A)::xs -> l @ [Stop]
+    | (G,C,A)::(G,C,C)::(G,C,G)::(G,C,U)::xs -> f xs (l @ [Ala])
+    | (A,G,A)::(A,G,G)::(C,G,A)::(C,G,C)::(C,G,G)::(C,G,U)::xs -> f xs (l @ [Arg])
+    | (A,A,C)::(A,A,U)::xs -> f xs (l @ [Asn])
+    | (G,A,C)::(G,A,U)::xs -> f xs (l @ [Asp])
+    | (U,G,C)::(U,G,U)::xs -> f xs (l @ [Cys])
+    | (C,A,A)::(C,A,G)::xs -> f xs (l @ [Gln])
+    | (G,A,A)::(G,A,G)::xs -> f xs (l @ [Glu])
+    | (G,G,A)::(G,G,C)::(G,G,G)::(G,G,U)::xs -> f xs (l @ [Gly])
+    | (C,A,C)::(C,A,U)::xs -> f xs (l @ [His])
+    | (A,U,A)::(A,U,C)::(A,U,U)::xs -> f xs (l @ [Ile])
+    | (C,U,A)::(C,U,C)::(C,U,G)::(C,U,U)::(U,U,A)::(U,U,G)::xs -> f xs (l @ [Leu])
+    | (A,A,A)::(A,A,G)::xs -> f xs (l @ [Lys])
+    | (A,U,G)::xs -> f xs (l @ [Met])
+    | (U,U,C)::(U,U,U)::xs -> f xs (l @ [Phe])
+    | (C,C,C)::(C,C,A)::(C,C,G)::(C,C,U)::xs -> f xs (l @ [Pro])
+    | (U,C,A)::(U,C,C)::(U,C,G)::(U,C,U)::xs -> f xs (l @ [Ser])
+    | (A,C,A)::(A,C,C)::(A,C,G)::(A,C,U)::xs -> f xs (l @ [Thr])
+    | (U,G,G)::xs -> f xs (l @ [Trp])
+    | (U,A,C)::(U,A,U)::xs -> f xs (l @ [Tyr])
+    | (G,U,A)::(G,U,C)::(G,U,G)::(G,U,U)::xs -> f xs (l @ [Val])
+    | _::xs -> f xs l
+    | _ -> l
+  in
+  f (generate_bases_triplets r) []
 
 let () =
-  let hx = generate_helix 17 in
+  let hx = generate_helix 500 in
   let getBoi n =
     match n with
       A -> "A"
@@ -183,4 +209,6 @@ let () =
   in
   List.iter printBoi (generate_bases_triplets rn);
   Printf.printf "\n";
-  Printf.printf "%s\n" (string_of_protein [Ala; Asn; Stop])
+  Printf.printf "%s\n" (string_of_protein [Ala; Asn; Stop]);
+  let prtn = decode_arn rn in
+  Printf.printf "%s\n" (string_of_protein prtn);
