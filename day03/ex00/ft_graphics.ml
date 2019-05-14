@@ -14,7 +14,11 @@ let draw_tree_node (t : 'a tree) : unit =
     match t with
       Node (a,b,c) -> Graphics.moveto (x-size/2) y; Graphics.draw_string a; draw_square x y size;
                       let d = (600 / div) in
+                      Graphics.moveto (x - d) (y - size + size/2);
+                      Graphics.lineto x (y - size/2);
                       f (x - d) (y - size) size (div*2) b;
+                      Graphics.moveto (x + d) (y - size + size/2);
+                      Graphics.lineto x (y - size/2);
                       f (x + d) (y - size) size (div*2) c;
     | Nil -> Graphics.moveto (x-size/2) y; Graphics.draw_string "nil"; draw_square x y size
   in
