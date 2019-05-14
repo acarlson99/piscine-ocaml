@@ -1,5 +1,5 @@
 NAME = test
-BOI = cipher.native
+BOI = uncipher.native
 
 all: ${NAME}
 
