@@ -76,3 +76,5 @@ TAGS
 *.cmi
 *.cmx
 test
+_build/
+*.native
