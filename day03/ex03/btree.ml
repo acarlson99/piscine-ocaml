@@ -56,18 +56,39 @@ let rec add_bst (v : 'a) (t : 'a tree) : 'a tree =
                     else t
   | Nil -> Node (v,Nil,Nil)
 
-let delete_bst (v : 'a) (t : 'a tree) : 'a tree =
-  Nil
+let rec delete_bst (v : 'a) (t : 'a tree) : 'a tree =
+  let rec minNode n : 'a =
+    match n with
+      Nil -> Nil
+    | Node (va,l,_) -> if l = Nil then va else minNode l
+  in
+  match t with
+    Nil -> t
+  | Node (c,l,r) -> if c = v then if l = Nil then r
+                                  else if r = Nil then l
+                                  else let n = (minNode r) in
+                                       Node (v, l, delete_bst n r)
+                    else if c < v then Node (c, delete_bst v l, r)
+                    else Node (c, l, delete_bst v r)
 
 let () =
+  let rec print_bst t =
+    match t with
+      Node (a,b,c) -> Printf.printf "(%d " a; print_bst b; print_bst c; Printf.printf ")"
+    | Nil -> Printf.printf "Nil ";
+  in
   let chk t =
     Printf.printf "\n%b\n" (is_bst t);
     Printf.printf "%b\n" (is_perfect t);
     if is_balanced t then Printf.printf "Perfectly balanced as all things should be\n"
     else Printf.printf "Unbalanced REEEEEEEEEEEE\n";
     Printf.printf "69 in tree? %b\n" (search_bst 69 t);
+    print_bst t;
+    Printf.printf "\n";
     let nt = add_bst 69 t in
-    Printf.printf "69 in tree? %b\n" (search_bst 69 nt)
+    print_bst nt;
+    Printf.printf "\n";
+    Printf.printf "69 in tree? %b\n" (search_bst 69 nt);
   in
   let t = Node (10, Node (7, Nil, Nil), Node (11, Nil, Node (12, Node (50, Nil, Nil), Nil))) in (* false *)
   chk t;
