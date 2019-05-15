@@ -1,6 +1,6 @@
 type 'a tree = Nil | Node of 'a * 'a tree * 'a tree
 
-let rec is_bst (t : 'a tree) : bool =
+let is_bst (t : 'a tree) : bool =
   let rec f (t : 'a tree) (mx : 'a option) (mn : 'a option) =
     match t with
       Node (a,b,c) ->
