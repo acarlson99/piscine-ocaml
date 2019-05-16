@@ -126,8 +126,39 @@ let allClubs    = List.filter (fun a -> getColor a = Color.Club) all
 
 let toString (c : t) : string =
   match c with
-    (v,c) -> Value.toString v ^ " of " ^ Color.toString c ^ "s"
+    (v,c) -> Value.toString v ^ Color.toString c
 
 let toStringVerbose (c : t) : string =
   match c with
-    (v,c) -> Value.toStringVerbose v ^ " of " ^ Color.toStringVerbose c ^ "s"
+    (v,c) -> "Card(" ^ Value.toStringVerbose v ^ ", " ^ Color.toStringVerbose c ^ ")"
+
+let compare (a : t) (b : t) : int =
+  Value.toInt (getValue a) - Value.toInt (getValue b)
+
+let max (a : t) (b : t) : t =
+  if compare a b < 0 then b
+  else a
+
+let min (a : t) (b : t) : t =
+  if compare a b > 0 then b
+  else a
+
+let best (l : t list) : t =
+  match l with
+    x::xs -> List.fold_left (fun a b -> max a b) x xs
+  | _ -> invalid_arg "empty list"
+
+let isOf (c : t) (clr : Color.t) : bool =
+  getColor c = clr
+
+let isSpade (c : t) : bool =
+  isOf c Color.Spade
+
+let isHeart (c : t) : bool =
+  isOf c Color.Heart
+
+let isDiamond (c : t) : bool =
+  isOf c Color.Diamond
+
+let isClub (c : t) : bool =
+  isOf c Color.Club
