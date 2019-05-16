@@ -105,3 +105,8 @@ let newCard (v : Value.t) (c : Color.t) : t =
   (v,c)
 
 let all = List.rev (List.fold_left (fun a cl -> List.fold_left (fun ab vl -> (vl,cl) :: ab) a Value.all) [] Color.all)
+
+let allSpades = List.filter (fun a -> match a with (_,v) -> v = Color.Spade) all
+let allHearts = List.filter (fun a -> match a with (_,v) -> v = Color.Heart) all
+let allDiamonds = List.filter (fun a -> match a with (_,v) -> v = Color.Diamond) all
+let allClubs = List.filter (fun a -> match a with (_,v) -> v = Color.Club) all
