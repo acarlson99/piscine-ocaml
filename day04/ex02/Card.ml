@@ -114,13 +114,20 @@ let all = List.rev (List.fold_left (fun a cl -> List.fold_left (fun ab vl -> (vl
 let getValue (c : t) : Value.t =
   match c with
     (v,_) -> v
-           
+
 let getColor (c : t) : Color.t =
   match c with
     (_,c) -> c
 
-               
 let allSpades   = List.filter (fun a -> getColor a = Color.Spade) all
 let allHearts   = List.filter (fun a -> getColor a = Color.Heart) all
 let allDiamonds = List.filter (fun a -> getColor a = Color.Diamond) all
 let allClubs    = List.filter (fun a -> getColor a = Color.Club) all
+
+let toString (c : t) : string =
+  match c with
+    (v,c) -> Value.toString v ^ " of " ^ Color.toString c ^ "s"
+
+let toStringVerbose (c : t) : string =
+  match c with
+    (v,c) -> Value.toStringVerbose v ^ " of " ^ Color.toStringVerbose c ^ "s"
