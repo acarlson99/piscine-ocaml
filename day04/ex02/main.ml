@@ -10,4 +10,6 @@ let () =
   Printf.printf "%s\n" (Card.toStringVerbose (Card.max c cn));
   Printf.printf "%s\n" (Card.toStringVerbose (Card.min c cn));
   Printf.printf "%s\n" (Card.toStringVerbose (Card.best [cn;c]));
-  Printf.printf "%s\n" (Card.toString (Card.best [cn;c]))
+  Printf.printf "%s\n" (Card.toString (Card.best [cn;c]));
+  Printf.printf "%s\n" (Card.toString (Card.best [cn;c; Card.newCard Card.Value.Jack Card.Color.Club]));
+  Printf.printf "%s\n" (Card.toString (Card.best [Card.newCard Card.Value.Jack Card.Color.Club;cn;c]));
