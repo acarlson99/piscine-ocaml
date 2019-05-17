@@ -5,6 +5,7 @@ let () =
   else let addToArr (arr : j) (str : string) : unit =
          arr.content <- Array.append arr.content [|str|]
        in
+       Random.self_init ();
        try let ic = open_in (Sys.argv.(1)) in
            try let a = {content=[| |]} in
                try while true do
