@@ -21,3 +21,7 @@ let () =
   Printf.printf "%s\n" (get b);
   set b "ghijkl";
   Printf.printf "%s\n" (get b);
+  let c = bind a (fun x -> return (x * 2)) in
+  Printf.printf "%d\n" (get c);
+  set c 42;
+  Printf.printf "%d\n" (get c);
