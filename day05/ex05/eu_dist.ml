@@ -10,11 +10,6 @@ let eu_dist (a : float array) (b : float array) : float =
   in
   sqrt (Array.fold_left (fun l r -> ((fst r -. snd r) ** 2.) +. l) 0. create_arr.contents)
 
-(*
-for i=1 to n
-    (a_i - b_i) ^ 2
- *)
-
 let () =
   Printf.printf "%f\n" (eu_dist [|2.;(-1.)|] [|(-2.);2.|]);
   Printf.printf "%f\n" (eu_dist [|1.;1.|] [|2.;1.;|])
