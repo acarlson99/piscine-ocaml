@@ -6,8 +6,9 @@ let examples_of_file (filepath : string) : (float array * string) list =
   let a = {content=[]} in
   let addToList (str : string) : unit =
     let l = String.split_on_char ',' str in
-    a.content <- a.content @ [(Array.of_list (List.mapi (fun i x -> if (i+1) = List.length l then 0.0 else float_of_string x) l), "g")]
-                               (* lst.content <- lst.content @ [(Array.of_list (List.map float_of_string (String.split_on_char ',' str)), "g")] *)
+    a.content <- a.content
+                 @ [(Array.of_list (List.mapi (fun i x -> if (i+1) = List.length l then 0.0 else float_of_string x) l),
+                     match List.fold_right (fun a b -> if b = [] then [a] else b) l [] with x::xs -> x | _ -> "Invalid format REEEEEEE")]
   in
   try let ic = open_in (filepath) in
       try while true do
@@ -16,7 +17,6 @@ let examples_of_file (filepath : string) : (float array * string) list =
           a.content
       with End_of_file -> a.content
   with e -> print_endline "Unable to open file";
-            Printf.eprintf "ERROR %s %s\n" (Printexc.to_string e) (Printexc.get_backtrace ());
             []
 
 let () =
