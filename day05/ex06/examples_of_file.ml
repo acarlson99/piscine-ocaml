@@ -1,7 +1,5 @@
 type j = { mutable content : (float array * string) list }
 
-(* TODO: finish *)
-
 let examples_of_file (filepath : string) : (float array * string) list =
   let a = {content=[]} in
   let addToList (str : string) : unit =
