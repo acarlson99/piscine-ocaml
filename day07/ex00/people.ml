@@ -1,6 +1,6 @@
 class people name =
 object (self)
-  (* val name : string = n *)
+  val name : string = name
   val hp : int = 100
   initializer (print_endline ("Oh the pain of being alive: " ^ self#to_string))
   method to_string = name ^ " " ^ (string_of_int hp)
