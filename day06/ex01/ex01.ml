@@ -3,6 +3,7 @@ module StringHash =
     type t = string
     let equal (s1 : 'a) (s2 : 'a) : bool =
       s1 = s2
+    (* https://cp-algorithms.com/string/string-hashing.html *)
     let hash (s : t) : int =
       let toint c =
         match c with
