@@ -1,5 +1,11 @@
 module type FIXED = sig
   type t = int
+
+  val zero : int
+end
+
+module Make (F : FIXED) = struct
+  let x = F.zero
 end
 
 module Fixed4 : FIXED = Make (struct let bits = 4 end)
