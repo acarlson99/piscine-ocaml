@@ -33,3 +33,6 @@ let () =
 
   let calcium_oxide = new Molecule.calcium_oxide in
   print_endline calcium_oxide#to_string;
+
+  print_endline @@ string_of_bool @@ calcium_oxide#equals calcium_oxide;
+  print_endline @@ string_of_bool @@ calcium_oxide#equals glucose;
