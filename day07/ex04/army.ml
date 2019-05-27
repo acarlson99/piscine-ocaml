@@ -17,4 +17,5 @@ object (self)
     else bois <- d bois []
 
   method apply f = List.iter f bois
+  method getList = bois
 end
